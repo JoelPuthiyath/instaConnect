@@ -1,61 +1,123 @@
-# Login & Registration Form with MERN stack
+# Instagram OAuth MERN Application
 
-## 👋 Introduction
+A production-ready MERN stack application featuring Instagram OAuth login with role-based access control (Business/Creator accounts only).
 
-Responsive user Registration and Login (SignIn & SignUp) Form functionality using React, NodeJS, ExpressJS and MongoDB and Bootstrap.
+## Features
 
+- **Instagram Login**: "Continue with Instagram" flow using Basic Display API.
+- **Role Verification**: Restricts access to Business/Creator accounts.
+- **Secure Authentication**: JWT-based session management with HttpOnly cookies.
+- **Modern UI**: Responsive design using Tailwind CSS.
+- **Dashboard**: Displays user profile, followers count, and media metrics.
+- **Security**: Helmet, Rate Limiting, CORS, and Input Validation (Zod).
 
-![Screenshot (219)](https://github.com/AkshataGanbote/Registration_Login_Form_MERN_Stack/assets/117456092/442bbe2d-cda7-4d5c-a156-9e9cc9b3f108)
+## Tech Stack
 
-![Screenshot (220)](https://github.com/AkshataGanbote/Registration_Login_Form_MERN_Stack/assets/117456092/01b04452-4e8b-4a24-b680-28c93f2c7550)
+- **Frontend**: React, Vite, Tailwind CSS, Axios, React Router.
+- **Backend**: Node.js, Express, MongoDB (Mongoose).
+- **Security**: Helmet, Express-Rate-Limit, JWT, CSRF protection (via state).
 
+## Prerequisites
 
-## ❓Requirements
+- Node.js (v16+)
+- MongoDB (Local or Atlas)
+- Instagram App (Basic Display API) configured.
 
-Before going forward you must have **Node js** installed on your machine.  
-Go to the link below for installation if you don't have installed yet.
+## Setup Instructions
 
-- [Node js](https://nodejs.org/en/download)
+### 1. Clone & Install Dependencies
 
+\`\`\`bash
+# Backend
+cd backend
+npm install
 
-## ⚙️ Installation & Getting started :
+# Frontend
+cd ../frontend
+npm install
+\`\`\`
 
-1. Download the repository
+### 2. Environment Configuration
 
-2. Unzip folder and open it with [VS Code](https://code.visualstudio.com/)
+Create \`.env\` file in \`backend/\`:
 
-- <h3> Frontend
+\`\`\`env
+PORT=3001
+MONGO_URI=mongodb://127.0.0.1:27017/practice_mern  # Or your MongoDB Atlas URI
+NODE_ENV=development
+CLIENT_URL=http://localhost:5173
 
-1. Open terminal & go to `cd frontend`
+# Instagram Credentials
+INSTAGRAM_APP_ID=your_app_id
+INSTAGRAM_APP_SECRET=your_app_secret
+REDIRECT_URI=http://localhost:5173/instagram-callback
 
-2. Install dependencies by running `npm install` command
+# JWT Configuration
+JWT_SECRET=your_super_secret_key
+JWT_EXPIRES_IN=90d
+JWT_COOKIE_EXPIRES_IN=90
+\`\`\`
 
-3. Run the command `npm run dev` to start live server
+Create \`.env\` file in \`frontend/\`:
 
-4. Click on `http://localhost:5173/`
+\`\`\`env
+VITE_API_URL=http://localhost:3001
+\`\`\`
 
-- <h3>Backend
+### 3. Run the Application
 
-1. Open terminal & go to `cd backend` 
+**Backend:**
+\`\`\`bash
+cd backend
+npm start
+\`\`\`
 
-2. install dependencies by running `npm install` command
+**Frontend:**
+\`\`\`bash
+cd frontend
+npm run dev
+\`\`\`
 
-3. Run the command `npm start` or `nodemon index.js` to start live server on database
+Visit \`http://localhost:5173\` to view the app.
 
+## Deployment Guide
 
-- Congratulation 🎉 you have setup the environment successfully
+### Backend (Render/Railway/AWS)
 
+1.  **Build**: Not required for Node.js, just run \`src/server.js\`.
+2.  **Environment Variables**: Set all variables from \`backend/.env\` in your cloud provider dashboard.
+3.  **Command**: \`npm start\`
 
+### Frontend (Vercel/Netlify)
 
-## 🛠️ Technology Used
+1.  **Build**: \`npm run build\`
+2.  **Output Directory**: \`dist\`
+3.  **Environment Variables**: Set \`VITE_API_URL\` to your deployed backend URL.
+4.  **Rewrite Rules**: For Single Page Apps, configure rewrites to \`index.html\` for all routes. (Vercel does this automatically).
 
-This project uses the following technologies:
+## Directory Structure
 
-- [React](https://reactjs.org) and [React Router](https://reacttraining.com/react-router/) for frontend
-- [Express](http://expressjs.com/) and [Node](https://nodejs.org/en/) for the backend
-- [MongoDB](https://www.mongodb.com/) for the database
-- [Bootstrap](https://getbootstrap.com/) for styling
-
-<br/>
-
-<h2> Do not forget to give a star! ⭐🤗 </h2>
+\`\`\`
+.
+├── backend/
+│   ├── src/
+│   │   ├── config/         # DB, Logger
+│   │   ├── controllers/    # Route Logic
+│   │   ├── middleware/     # Auth, Error, Validation
+│   │   ├── models/         # Mongoose Models
+│   │   ├── routes/         # API Routes
+│   │   ├── services/       # Business Logic (Instagram, Token)
+│   │   ├── utils/          # Helpers
+│   │   ├── app.js          # Express App Setup
+│   │   └── server.js       # Entry Point
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── components/     # UI & Layout
+│   │   ├── context/        # Auth State
+│   │   ├── pages/          # Views
+│   │   ├── services/       # API Client
+│   │   └── ...
+│   └── ...
+└── ...
+\`\`\`
